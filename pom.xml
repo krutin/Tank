@@ -97,7 +97,6 @@
         <module>harness_data</module>
         <module>search</module>
         <module>reporting</module>
-        <module>test_support</module>
         <module>api</module>
         <module>data_model</module>
         <module>data_access</module>
@@ -160,7 +159,6 @@
         <module>harness_data</module>
         <module>search</module>
         <module>reporting</module>
-        <module>test_support</module>
         <module>api</module>
         <module>data_model</module>
         <module>data_access</module>
@@ -188,7 +186,6 @@
         <module>harness_data</module>
         <module>search</module>
         <module>reporting</module>
-        <module>test_support</module>
         <module>api</module>
         <module>data_model</module>
         <module>data_access</module>
