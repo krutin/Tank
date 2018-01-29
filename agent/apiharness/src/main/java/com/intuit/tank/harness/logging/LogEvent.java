@@ -36,6 +36,7 @@ import com.intuit.tank.logging.LogFields;
 import com.intuit.tank.logging.LoggingProfile;
 import com.intuit.tank.logging.SourceType;
 import com.intuit.tank.script.RequestDataPhase;
+import org.apache.logging.log4j.ThreadContext;
 
 public class LogEvent implements Serializable {
 
@@ -73,43 +74,41 @@ public class LogEvent implements Serializable {
         super();
     }
 
-    public Map<String, String> buildMessage(LogEventType type, String message) {
+    public String buildMessage(LogEventType type, String message) {
         setEventType(type);
         setMessage(message);
         return buildMessage();
     }
 
-    public Map<String, String> buildMessage() {
-    	Map<String, String> map = new HashMap<String,String>();
-        appendField(map, LogFields.EventType, eventType.name());
-        appendField(map, LogFields.SourceType, sourceType.name());
-        appendField(map, LogFields.InstanceId, instanceId);
-        appendField(map, LogFields.PublicIp, publicIp);
-        appendField(map, LogFields.Hostname, hostname);
-        appendField(map, LogFields.JobId, jobId);
-        appendField(map, LogFields.TransactionId, transactionId);
-        appendField(map, LogFields.ThreadId, threadId);
-        appendField(map, LogFields.LoggingKey, loggingKey);
-        appendField(map, LogFields.ProjectName, projectName);
-        appendField(map, LogFields.TestPlanName, testPlan != null ? testPlan.getTestPlanName() : null);
-        appendField(map, LogFields.GroupName, group != null ? group.getName() : null);
-        appendField(map, LogFields.ScriptName, script != null ? script.getName() : null);
-        appendField(map, LogFields.StepName, step != null ? step.getInfo() : null);
-        appendField(map, LogFields.StepIndex, stepIndex);
-        appendField(map, LogFields.StepGroupName, stepGroupName);
-        appendField(map, LogFields.TestIteration, iteration);
-        appendField(map, LogFields.RequestUrl, buildUrl());
-        appendField(map, LogFields.ValidationStatus, validationStatus);
-        appendField(map, LogFields.HttpResponseTime, getResponseTime());
-        appendField(map, LogFields.UserVariables, getVariableValues());
-        appendField(map, LogFields.ValidationCriteria, getValidationCriteria(RequestDataPhase.POST_REQUEST));
-        appendField(map, LogFields.PreValidationCriteria, getValidationCriteria(RequestDataPhase.PRE_REQUEST));
-        appendField(map, LogFields.HttpRequestHeaders, getHeaders(HttpType.REQUEST));
-        appendField(map, LogFields.HttpRequestBody, getBody(HttpType.REQUEST));
-        appendField(map, LogFields.HttpResponseHeaders, getHeaders(HttpType.RESPONSE));
-        appendField(map, LogFields.HttpResponseBody, getBody(HttpType.RESPONSE));
-        map.put("Message", message);
-        return map;
+    public String buildMessage() {
+        appendField(LogFields.EventType, eventType.name());
+        appendField(LogFields.SourceType, sourceType.name());
+        appendField(LogFields.InstanceId, instanceId);
+        appendField(LogFields.PublicIp, publicIp);
+        appendField(LogFields.Hostname, hostname);
+        appendField(LogFields.JobId, jobId);
+        appendField(LogFields.TransactionId, transactionId);
+        appendField(LogFields.ThreadId, threadId);
+        appendField(LogFields.LoggingKey, loggingKey);
+        appendField(LogFields.ProjectName, projectName);
+        appendField(LogFields.TestPlanName, testPlan != null ? testPlan.getTestPlanName() : null);
+        appendField(LogFields.GroupName, group != null ? group.getName() : null);
+        appendField(LogFields.ScriptName, script != null ? script.getName() : null);
+        appendField(LogFields.StepName, step != null ? step.getInfo() : null);
+        appendField(LogFields.StepIndex, stepIndex);
+        appendField(LogFields.StepGroupName, stepGroupName);
+        appendField(LogFields.TestIteration, iteration);
+        appendField(LogFields.RequestUrl, buildUrl());
+        appendField(LogFields.ValidationStatus, validationStatus);
+        appendField(LogFields.HttpResponseTime, getResponseTime());
+        appendField(LogFields.UserVariables, getVariableValues());
+        appendField(LogFields.ValidationCriteria, getValidationCriteria(RequestDataPhase.POST_REQUEST));
+        appendField(LogFields.PreValidationCriteria, getValidationCriteria(RequestDataPhase.PRE_REQUEST));
+        appendField(LogFields.HttpRequestHeaders, getHeaders(HttpType.REQUEST));
+        appendField(LogFields.HttpRequestBody, getBody(HttpType.REQUEST));
+        appendField(LogFields.HttpResponseHeaders, getHeaders(HttpType.RESPONSE));
+        appendField(LogFields.HttpResponseBody, getBody(HttpType.RESPONSE));
+        return message;
     }
 
     private String getValidationCriteria(RequestDataPhase type) {
@@ -400,10 +399,10 @@ public class LogEvent implements Serializable {
         this.activeProfile = activeProfile;
     }
 
-    private void appendField(Map<String,String> map, LogFields field, String value) {
+    private void appendField(LogFields field, String value) {
         if (getActiveProfile().isFieldLogged(field)) {
             if (StringUtils.isNotBlank(value)) {
-                map.put(field.name(), value);
+                ThreadContext.put(field.name(), value);
             }
         }
     }

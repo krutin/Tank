@@ -72,23 +72,30 @@ public class MethodTimer {
     }
 
     public String getMarkTimeMessage(String message) {
-        return (new StringBuilder(String.valueOf(methodName))).append(" :: ")
-                .append(message == null ? "" : message).append(" took ")
-                .append(elapsedToMs(mark - prevMark)).append(" ms.").toString();
+        return (new StringBuilder(String.valueOf(methodName)))
+                .append(" :: ")
+                .append(message == null ? "" : message)
+                .append(" elapsedMs=")
+                .append(elapsedToMs(mark - prevMark))
+                .toString();
     }
 
     public String getTimeMessage() {
         if (end == 0L)
             end();
-        return (new StringBuilder(String.valueOf(methodName))).append(" took ")
-                .append(elapsedToMs(end - start)).append(" ms.").toString();
+        return (new StringBuilder(String.valueOf(methodName)))
+                .append(" elapsedMs=")
+                .append(elapsedToMs(end - start))
+                .toString();
     }
 
     public String getNaturalTimeMessage() {
         if (end == 0L)
             end();
-        return (new StringBuilder(String.valueOf(methodName))).append(" took ")
-                .append(TimeUtil.toTimeString(elapsedToMs(end - start))).toString();
+        return (new StringBuilder(String.valueOf(methodName)))
+                .append(" elapsedMs=")
+                .append(elapsedToMs(end - start))
+                .toString();
     }
 
     public MethodTimer logMark(String message) {
@@ -109,7 +116,9 @@ public class MethodTimer {
     public MethodTimer markAndLog() {
         mark();
         logMark((new StringBuilder("Mark ("))
-                .append(Integer.toString(numMarks)).append(")").toString());
+                .append(Integer.toString(numMarks))
+                .append(")")
+                .toString());
         return this;
     }
 

@@ -35,17 +35,17 @@ public class HttpRequestFactory {
     public static final class TankLogUtil implements TankHttpLogger {
 
         @Override
-        public Map<String,String> getLogMessage(String msg) {
+        public String getLogMessage(String msg) {
             return LogUtil.getLogMessage(msg);
         }
 
         @Override
-        public Map<String,String> getLogMessage(String msg, LogEventType type) {
+        public String getLogMessage(String msg, LogEventType type) {
             return LogUtil.getLogMessage(msg, type);
         }
 
         @Override
-        public Map<String,String> getLogMessage(String msg, LogEventType type, LoggingProfile profile) {
+        public String getLogMessage(String msg, LogEventType type, LoggingProfile profile) {
             return LogUtil.getLogMessage(msg, type, profile);
         }
 

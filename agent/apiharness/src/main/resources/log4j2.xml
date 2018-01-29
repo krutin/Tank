@@ -8,7 +8,7 @@
 			</Policies>
         </RollingFile>
         <RollingFile name="agent" filename="logs/agent.log" filePattern="logs/agent-%i.log">
-            <PatternLayout pattern="%d{yyyy-MM-dd  HH:mm:ss,SSS z} %5p %c{1}:%L - %m%n" />
+            <JsonLayout compact="true" eventEol="true" properties="true"/>
             <Policies>
 				<SizeBasedTriggeringPolicy size="100 MB" />
 			</Policies>

@@ -235,8 +235,8 @@ public class TestPlanRunner implements Runnable {
     /**
      * Check to see if the thread/virtual user should continue for another loop
      * 
-     * @param lastLoop
-     * 
+     * @param phase
+     * @param finished
      * @return
      */
     private boolean isCompleted(RunPhase phase, boolean finished) {

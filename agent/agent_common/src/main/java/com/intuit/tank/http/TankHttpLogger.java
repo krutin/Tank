@@ -15,21 +15,21 @@ public interface TankHttpLogger {
      * @param msg
      * @return
      */
-    public Map<String,String> getLogMessage(String msg);
+    public String getLogMessage(String msg);
     /**
      * Returns the message to log. will prepend the jobId to the log message in the form of jobId[id]:
      * 
      * @param msg
      * @return
      */
-    public Map<String,String> getLogMessage(String msg, LogEventType type);
+    public String getLogMessage(String msg, LogEventType type);
     /**
      * Returns the message to log. will prepend the jobId to the log message in the form of jobId[id]:
      * 
      * @param msg
      * @return
      */
-    public Map<String,String> getLogMessage(String msg, LogEventType type, LoggingProfile profile);
+    public String getLogMessage(String msg, LogEventType type, LoggingProfile profile);
 
     /**
      * Returns true if the argument is a valid mimeType else returns false

@@ -51,7 +51,7 @@ public final class LogUtil {
      * @param msg
      * @return
      */
-    public static final Map<String,String> getLogMessage(String msg) {
+    public static final String getLogMessage(String msg) {
         return getLogMessage(msg, null);
     }
 
@@ -61,7 +61,7 @@ public final class LogUtil {
      * @param msg
      * @return
      */
-    public static final Map<String,String> getLogMessage(String msg, LogEventType type) {
+    public static final String getLogMessage(String msg, LogEventType type) {
         LogEvent logEvent = getLogEvent();
         logEvent.setMessage(msg);
         logEvent.setEventType(type != null ? type : LogEventType.System);
@@ -74,15 +74,15 @@ public final class LogUtil {
      * @param msg
      * @return
      */
-    public static final Map<String,String> getLogMessage(String msg, LogEventType type, LoggingProfile profile) {
+    public static final String getLogMessage(String msg, LogEventType type, LoggingProfile profile) {
         LogEvent logEvent = getLogEvent();
         LoggingProfile resetProfile = logEvent.getActiveProfile();
         if (null != profile) {
             logEvent.setActiveProfile(profile);
         }
-        Map<String,String> map = getLogMessage(msg, type);
+        String s = getLogMessage(msg, type);
         logEvent.setActiveProfile(resetProfile);
-        return map;
+        return s;
     }
 
     /**
